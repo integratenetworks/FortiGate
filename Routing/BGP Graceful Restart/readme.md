@@ -1,6 +1,7 @@
 # Fortigate Graceful Restart
 
 In a FortiGate High Availability Active/Passive deployment, only the primary unit runs the BGP routing process. When a failover occurs due to a planned event (like maintenance or firmware upgrade) or an unplanned outage (such as hardware failure)—the standby unit becomes the new primary, the new primary must restart the BGP process and reestablish peering sessions. Although the firewall retains its routing table, BGP peers may see the loss of session as a failure and withdraw routes, causing traffic interruption.
+
 The Graceful Restart feature helps traffic disruption. It allows BGP peers to keep routes temporarily during the transition, treating the session loss as a temporary event. If the FortiGate reestablishes the BGP session within the restart timer (typically 120 seconds), routes are refreshed without disruption.
 This ensures routing stability, prevents unnecessary route flapping, and minimises downtime during HA failover events.
 
