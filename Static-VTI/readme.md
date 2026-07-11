@@ -1,5 +1,6 @@
-VTI Configuration
+# VTI Configuration
 Configure the IKE (Phase 1) settings, this includes the IKE version (1 or 2), key lifetime, IKE proposal, DH group, authentication method (pre-shared key or certificates), Pre-Shared-Key, interface and remote gateway IP address.
+```ruby
 config vpn ipsec phase1-interface
     edit "to-SPOKE1"
         set interface "port1"
@@ -13,6 +14,7 @@ config vpn ipsec phase1-interface
         set psksecret ENC 9ibbjWh0GLx7AH/UAOxT2RpzDJYcX/3Of6J1vshOpRQOR5f6sibjWY9lnT42pTi+CZ3RU7jzBaJWUqSzqqNywI9id8R5lrp+0I4Er12KP8YqobijqjkTxS/zJ+3FGKBcsQ92MkRA4Tg5JTJ9uxcN4wCWUr/rxuYpAOBV1GUVIBV326hMTTR68BSQeamWvZJ/dk1heA==
     next
 end
+'''
 
 The IPsec (Phase 2) configuration references the already created Phase 1 settings and specifies the IPSec proposal, DH group (if using PFS) and key lifetime of Phase 2.
 config vpn ipsec phase2-interface
