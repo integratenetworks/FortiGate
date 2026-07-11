@@ -14,9 +14,10 @@ config vpn ipsec phase1-interface
         set psksecret ENC 9ibbjWh0GLx7AH/UAOxT2RpzDJYcX/3Of6J1vshOpRQOR5f6sibjWY9lnT42pTi+CZ3RU7jzBaJWUqSzqqNywI9id8R5lrp+0I4Er12KP8YqobijqjkTxS/zJ+3FGKBcsQ92MkRA4Tg5JTJ9uxcN4wCWUr/rxuYpAOBV1GUVIBV326hMTTR68BSQeamWvZJ/dk1heA==
     next
 end
-'''
+```
 
 The IPsec (Phase 2) configuration references the already created Phase 1 settings and specifies the IPSec proposal, DH group (if using PFS) and key lifetime of Phase 2.
+```ruby
 config vpn ipsec phase2-interface
     edit "to-SPOKE1"
         set phase1name "to-SPOKE1"
@@ -25,8 +26,10 @@ config vpn ipsec phase2-interface
         set keylifeseconds 3600
     next
 end
+```
 Configuring the Phase 1 interface will automatically create a logical interface with the same name and the basic settings.
 
+```ruby
 DC1-HUB # show | grep -f to-SPOKE1
 config system interface
     edit "to-SPOKE1"
@@ -36,9 +39,9 @@ config system interface
         set interface "port1"
     next
 end
-
+```
 Edit the tunnel interface and configure the tunnel IP address, this must be configured as a /32 and specify the “remote-ip” of the peer’s tunnel IP address.
-
+```ruby
 config system interface
     edit "to-SPOKE1"
         set vdom "root"
@@ -50,11 +53,13 @@ config system interface
         set interface "port1"
     next
 end
+```
 
 NOTE – if you do not specify the “remote-ip” of the peer’s tunnel IP address, there will be no dynamically created route to the peer’s tunnel IP address in the routing table and the FortiGate will not automatically be able to communicate with the peer’s tunnel IP address.
 
 Edit the firewall policy and create rules to communicate over the VPN (inbound and outbound).
 
+```ruby
 config firewall policy
     edit 3
         set name "to SPOKE1"
@@ -79,10 +84,12 @@ config firewall policy
         set logtraffic all
      next
 end
+```
 
-Verification
+# Verification
 At this point the tunnel should automatically be established if the peer device is already configured and configured correctly.
 Run the command diagnose vpn ike gateway, this will show the IKE (Phase 1) gateways and state. You can determine if the tunnel is up, look for status: established.
+```ruby
 DC1-HUB # diagnose vpn ike gateway
 vd: root/0
 name: to-SPOKE1
@@ -142,6 +149,7 @@ proxyid=to-SPOKE1 proto=0 sa=1 ref=2 serial=1
        ah=null key=0 
   dec:pkts/bytes=1237/1128, enc:pkts/bytes=2/296
   npu_flag=00 npu_rgwy=1.0.1.1 npu_lgwy=1.0.0.1 npu_selid=1 dec_npuid=0 enc_npuid=0
+```
 
 With Phase 1 and Phase 2 successfully established, confirm the route to the tunnel network has automatically been added to the routing table, run the command get router info routing-table all.
 From the output below we can determine there is the route to the tunnel network via the tunnel interface “to-SPOKE1”.
@@ -150,14 +158,14 @@ Test communication to the peer’s tunnel IP address execute ping <peer’s tunn
  
 We can confirm the VPN status from the GUI, navigate to the IPSec Monitor, this will confirm the tunnel is up and the incoming/outgoing data in bytes.
  
-Useful Commands
+# Useful Commands
 The following are useful commands when troubleshooting FortiGate VPN issues: -
 To flush the tunnel:
 diagnose vpn tunnel flush <my-phase1-name>
 diagnose vpn ike gateway clear name <my-phase1-name>
 diagnose vpn ike gateway flush name <my-phase1-name>
 
-Debug commands:
+**Debug commands:**
 diagnose vpn ike log filter rem-addr4 <peer public ip address>
 diagnose debug application ike -1
 diagnose debug application fnbamd -1
@@ -165,10 +173,10 @@ diagnose debug application eap_proxy -1
 diagnose debug console timestamp enable
 diagnose debug enable
  
-Disable debugs:
+**Disable debugs:**
 diagnose debug reset
 diagnose debug disable
 
-Resources
+# Resources
 https://community.fortinet.com/t5/FortiGate/Troubleshooting-Tip-IPsec-VPN-tunnels/ta-p/195955
 https://community.fortinet.com/t5/FortiGate/Troubleshooting-Tip-Troubleshooting-IPsec-Site-to-Site-Tunnel/ta-p/195672
