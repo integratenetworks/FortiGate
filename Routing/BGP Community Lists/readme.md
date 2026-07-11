@@ -3,7 +3,10 @@
 BGP communities are optional tags that can be attached to routes and carried between routers. They let you tag routes at ingress and match on those tags in your outbound policy, controlling what gets advertised to which peers without maintaining individual prefix configurations per neighbour. This makes them particularly useful for controlling route leaking between peers at scale.
 Background
 
-The diagram below represents the topology covered in post.
+The diagram below represents the topology covered in post.  
+<p align="center">
+  <img src="fortigate-bgp-community-topology.png" alt="Toplogy">
+</p>
  
 In this scenario the FortiGate Firewall (DCFW) has eBGP relationships with PEER1 and PEER2, all devices have each other’s routes in their routing table.  This FortiGate will set a community value to all routes learned from PEER1 and only allow routes matching that community value to be advertised to PEER2.
 Run the command get router info routing-table bgp on PEER2 to confirm it has DCFW and PEER1 routes.
