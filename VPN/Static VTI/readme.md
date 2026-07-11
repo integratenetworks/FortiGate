@@ -88,7 +88,7 @@ end
 
 # Verification
 At this point the tunnel should automatically be established if the peer device is already configured and configured correctly.
-Run the command diagnose vpn ike gateway, this will show the IKE (Phase 1) gateways and state. You can determine if the tunnel is up, look for status: established.
+Run the command **diagnose vpn ike gateway**, this will show the IKE (Phase 1) gateways and state. You can determine if the tunnel is up, look for status: established.
 ```ruby
 DC1-HUB # diagnose vpn ike gateway
 vd: root/0
@@ -124,7 +124,7 @@ IPsec SA: created 1/2  established 1/2  time 0/35/70 ms
   DPD sent/recv: 00000000/00000000
   peer-id: 1.0.1.1
 ```
-Run the command diagnose vpn tunnel list. Show the state of the IPSec tunnels (Phase 2/ CHILD SA) – this will show the lifetime, encrypted/decrypted packets amongst other settings.
+Run the command **diagnose vpn tunnel list**. Show the state of the IPSec tunnels (Phase 2/ CHILD SA) – this will show the lifetime, encrypted/decrypted packets amongst other settings.
 ```ruby
 DC1-HUB # diagnose vpn tunnel list 
 list all ipsec tunnel in vd 0
@@ -151,7 +151,7 @@ proxyid=to-SPOKE1 proto=0 sa=1 ref=2 serial=1
   npu_flag=00 npu_rgwy=1.0.1.1 npu_lgwy=1.0.0.1 npu_selid=1 dec_npuid=0 enc_npuid=0
 ```
 
-With Phase 1 and Phase 2 successfully established, confirm the route to the tunnel network has automatically been added to the routing table, run the command get router info routing-table all.
+With Phase 1 and Phase 2 successfully established, confirm the route to the tunnel network has automatically been added to the routing table, run the command **get router info routing-table all**.
  
 # Useful Commands
 The following are useful commands when troubleshooting FortiGate VPN issues: -  
