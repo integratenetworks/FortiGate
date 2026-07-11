@@ -162,12 +162,12 @@ We can confirm the VPN status from the GUI, navigate to the IPSec Monitor, this 
 The following are useful commands when troubleshooting FortiGate VPN issues: -  
 
 **To flush the tunnel**:  
-diagnose vpn tunnel flush '<my-phase1-name>'  
-diagnose vpn ike gateway clear name '<my-phase1-name>'  
-diagnose vpn ike gateway flush name '<my-phase1-name>'  
+diagnose vpn tunnel flush [my-phase1-name]  
+diagnose vpn ike gateway clear name [my-phase1-name]  
+diagnose vpn ike gateway flush name [my-phase1-name]  
 
 **Debug commands:**  
-diagnose vpn ike log filter rem-addr4 '<peer-public-ip-address>'    
+diagnose vpn ike log filter rem-addr4 [peer-public-ip-address]    
 diagnose debug application ike -1  
 diagnose debug application fnbamd -1  
 diagnose debug application eap_proxy -1  
