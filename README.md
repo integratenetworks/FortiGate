@@ -1,5 +1,6 @@
 # FortiGate Configurations 
 This repository contains FortiGate configurations, including:-
 
-- Route Based VPN
-- Policy Based VPN
+- Routing
+- VPN (ADVPN, Route Based and Policy Based)
+- SD-WAN
