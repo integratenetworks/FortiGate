@@ -123,9 +123,9 @@ IPsec SA: created 1/2  established 1/2  time 0/35/70 ms
   lifetime/rekey: 43200/42789
   DPD sent/recv: 00000000/00000000
   peer-id: 1.0.1.1
-
+```
 Run the command diagnose vpn tunnel list. Show the state of the IPSec tunnels (Phase 2/ CHILD SA) – this will show the lifetime, encrypted/decrypted packets amongst other settings.
-
+```ruby
 DC1-HUB # diagnose vpn tunnel list 
 list all ipsec tunnel in vd 0
 ------------------------------------------------------
@@ -152,11 +152,6 @@ proxyid=to-SPOKE1 proto=0 sa=1 ref=2 serial=1
 ```
 
 With Phase 1 and Phase 2 successfully established, confirm the route to the tunnel network has automatically been added to the routing table, run the command get router info routing-table all.
-From the output below we can determine there is the route to the tunnel network via the tunnel interface “to-SPOKE1”.
- 
-Test communication to the peer’s tunnel IP address execute ping <peer’s tunnel ip>.
- 
-We can confirm the VPN status from the GUI, navigate to the IPSec Monitor, this will confirm the tunnel is up and the incoming/outgoing data in bytes.
  
 # Useful Commands
 The following are useful commands when troubleshooting FortiGate VPN issues: -  
